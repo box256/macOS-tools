@@ -1,0 +1,20 @@
+# Create fusion drive: Use this list of commands after installing a new HDD / SSD or both.
+
+** From the list of drives found look for internal drives only. Usually “disk0” and “disk1” **
+1. diskutil list			
+
+** Example: diskutil coreStorage create FUSE /dev/disk0 /dev/disk1 **
+2. diskutil coreStorage create FUSE /dev/disk [X] /dev/disk [X]			
+
+** If the fusion was successful there will be a very long alphanumeric code generated. This is your lvgUUID. **
+3. diskutil coreStorage createVolume [lvgUUID] jhfs+ "Macintosh HD" 100%
+
+
+# Break fusion drive: Used when triaging and issue that could be caused by a fusion drive.
+
+1. diskutil coreStorage list
+
+** Look for the Locate Logical Volume Group ID# and copy to the clipboard. Paste this ID# in the next command. **
+2. diskutil coreStorage delete [Logical Volume Group ID#]
+
+** After the volume breaks use Disk Utility to repair the volume and then reinstall macOS **
